@@ -1,0 +1,17 @@
+
+.PHONY: np_sbm.exe
+np_sbm.exe: tb_SBM_num_par.cpp numberpartition.o simulatedBifurcationOptimizer.o
+	g++ -I../src/include -I../src/ tb_SBM_num_par.cpp numberpartition.o simulatedBifurcationOptimizer.o -o np_sbm.exe
+
+numberpartition.o: numberpartition.cpp numberpartition.hpp
+	g++ -c numberpartition.cpp -o numberpartition.o
+
+simulatedBifurcationOptimizer.o: ../src/simulatedBifurcationOptimizer.cpp ../src/simulatedBifurcationOptimizer.hpp
+	g++ -I../src/include -I../src/ -c ../src/simulatedBifurcationOptimizer.cpp -o simulatedBifurcationOptimizer.o
+
+sbOptimizer_top.o: ../src/sbOptimizer_top.cpp ../src/sbOptimizer_kernels.hpp
+	g++ -I../src/include -I../src/ -c ../src/sbOptimizer_top.cpp -o sbOptimizer_top.o
+
+.PHONY: clean
+clean:
+	rm -f *.exe
